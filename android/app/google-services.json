@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "705587892382",
+    "project_id": "movie-list-1eba1",
+    "storage_bucket": "movie-list-1eba1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705587892382:android:959ad77be177b6dd086b8f",
+        "android_client_info": {
+          "package_name": "com.example.uas_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHDo2Byt6tJ4ZNXZxnfW15tpDiRjdJj_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
