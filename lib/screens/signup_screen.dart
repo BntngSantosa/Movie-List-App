@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:uas_app/auth/firebase_auth.dart';
 import 'package:uas_app/screens/login_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -13,6 +14,53 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool showPassword = false;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  FirebaseAuthService _authService = FirebaseAuthService();
+
+  Future<void> _showSuccessDialog() async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Success"),
+          content: Text("Sign up successful!"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.pop(context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()));
+                _emailController.clear();
+                _passwordController.clear();
+              },
+              child: Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _showErrorDialog(String errorMessage) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Error"),
+          content: Text(errorMessage),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _emailController.clear();
+                _passwordController.clear();
+              },
+              child: Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +134,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: Center(
                   child: TextField(
                     controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       hintText: "Email",
                       border: UnderlineInputBorder(borderSide: BorderSide.none),
@@ -145,8 +194,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
             // button login
             InkWell(
-              onTap: () {
-                // signUp(_emailController.text, _passwordController.text);
+              onTap: () async {
+                try {
+                  // Check if the email is already in use
+                  bool isEmailInUse = await _authService
+                      .isEmailAlreadyInUse(_emailController.text);
+
+                  if (isEmailInUse) {
+                    // Show error dialog if email is already registered
+                    await _showErrorDialog(
+                        "Email is already registered. Please use a different email.");
+                  } else {
+                    // Proceed with sign up if email is not in use
+                    await _authService.signUp(
+                      _emailController.text,
+                      _passwordController.text,
+                    );
+                    await _showSuccessDialog();
+                  }
+                } catch (e) {
+                  await _showErrorDialog("Sign up failed. Please try again.");
+                }
               },
               child: Container(
                 height: 54,
@@ -175,18 +243,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "do you already have an account ?",
+                  "Do you already have an account ?",
                   style: TextStyle(fontFamily: "Inter-light", fontSize: 14),
                 ),
                 SizedBox(
                   width: 5,
                 ),
                 InkWell(
-                  onTap: () {
+                  onTap: () async {
                     Navigator.pop(
                       context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                      MaterialPageRoute(
+                        builder: ((context) => LoginScreen()),
+                      ),
                     );
+                      _emailController.clear();
+                      _passwordController.clear();
                   },
                   child: Text(
                     "Login",

@@ -21,9 +21,12 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   Future<void> _fetchMovies() async {
     final ApiService apiService = ApiService();
-    final List<MovieTrending> fetchedMovieTrendings = await apiService.getMoviesTrending();
-    final List<MovieTopRated> fetchedMoviesTopRated = await apiService.getMoviesTopRated();
-    final List<MovieUpComing> fetchedMoviesUpComing = await apiService.getMoviesUpComing();
+    final List<MovieTrending> fetchedMovieTrendings =
+        await apiService.getMoviesTrending();
+    final List<MovieTopRated> fetchedMoviesTopRated =
+        await apiService.getMoviesTopRated();
+    final List<MovieUpComing> fetchedMoviesUpComing =
+        await apiService.getMoviesUpComing();
     setState(() {
       movieTrendings = fetchedMovieTrendings;
       moviesTopRateds = fetchedMoviesTopRated;
@@ -35,8 +38,25 @@ class _ExploreScreenState extends State<ExploreScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white12,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
+        shadowColor: Colors.transparent,
+        title: Center(
+            child: Text(
+          "Explore",
+          style: TextStyle(
+            fontFamily: "Poppins-Medium",
+            fontSize: 18,
+            color: Colors.black,
+          ),
+        )),
+      ),
       body: ListView.builder(
-        itemCount: movieTrendings.length + moviesTopRateds.length + moviesUpComings.length + 2,
+        itemCount: movieTrendings.length +
+            moviesTopRateds.length +
+            moviesUpComings.length +
+            2,
         itemBuilder: (context, index) {
           if (index == 0) {
             return Padding(

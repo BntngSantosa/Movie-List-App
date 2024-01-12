@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
+import 'package:uas_app/screens/login_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -9,11 +10,42 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      child: ListView(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        leading: null,
+        automaticallyImplyLeading: false,
+        backgroundColor: Color(0xFFFFFFFF),
+        shadowColor: Colors.transparent,
+        title: Text(
+          "Hey, Bintang!",
+          style: TextStyle(
+            fontFamily: 'Semi Bold',
+            fontSize: 14,
+            color: Color(0xFF0F0F10),
+          ),
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.logout_outlined,
+              color: Color(0xFF0F0F10),
+            ), // Ganti dengan ikon yang sesuai
+            onPressed: () {
+              Navigator.pop(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LoginScreen(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+      body: ListView(
         children: [
           SizedBox(
             height: 40,

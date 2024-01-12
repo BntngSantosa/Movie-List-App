@@ -12,6 +12,7 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
+
 class _LoginScreenState extends State<LoginScreen> {
   bool showPassword = false;
   bool isSigning = false;
@@ -131,6 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: TextField(
                     controller: _passwordController,
                     obscureText: !showPassword,
+                    keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       hintText: "Password",
                       border: UnderlineInputBorder(borderSide: BorderSide.none),
@@ -238,7 +240,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _showSuccessDialog() {
     List<String> emailParts = _emailController.text.split('@');
-    String username = emailParts[0]; // Get the username part
+    String username = emailParts[0];
     showDialog(
       context: context,
       builder: (BuildContext context) {

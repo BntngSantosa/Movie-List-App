@@ -25,52 +25,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(74.0),
-        child: AppBar(
-          backgroundColor: Colors.white,
-          shadowColor: Colors.transparent,
-          automaticallyImplyLeading: false,
-          title: Padding(
-            padding: const EdgeInsets.only(),
-            child: Container(
-              width: double.infinity,
-              height: 54,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.25), // shadow color
-                    spreadRadius: 0, // spread radius
-                    blurRadius: 2, // blur radius
-                    offset: Offset(0, 0), // changes position of shadow
-                  ),
-                ],
-                color: Colors.white, // set your desired background color
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Center(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Search ...',
-                      border: InputBorder.none,
-                      hintStyle: TextStyle(
-                        fontFamily: "Inter-Regular",
-                        fontSize: 15,
-                      ),
-                      suffixIcon: Icon(
-                        FluentIcons.search_12_regular,
-                        size: 22,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
       body: pages[selectedIndex],
       bottomNavigationBar: Container(
         color: Colors.white,
